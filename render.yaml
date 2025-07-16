@@ -1,0 +1,6 @@
+services:
+  - type: web
+    name: rudra-location-tracker
+    env: php
+    buildCommand: ""
+    startCommand: ""
