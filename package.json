@@ -1,0 +1,14 @@
+{
+  "name": "rudra-data-email",
+  "version": "1.0.0",
+  "main": "server.js",
+  "dependencies": {
+    "express": "latest",
+    "body-parser": "latest",
+    "fs-extra": "latest",
+    "nodemailer": "latest"
+  },
+  "scripts": {
+    "start": "node server.js"
+  }
+}
